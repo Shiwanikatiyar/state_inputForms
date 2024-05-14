@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>input form</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script type="text/babel">
+      function App() {
+        
+        const [hobby, sethobby] = React.useState("");
+        const [data,setData]= React.useState([]);
+
+        function handleChange(event){
+
+            sethobby( event.target.value);
+            
+        
+        }
+
+
+        function handleAddHobby(event){
+            event.preventDefault();
+            setData([...data,hobby]);
+        }
+
+        function handleRemove(index){
+            const deleteData = [...data]
+            deleteData.splice(index,1);
+            setData(deleteData);
+        }
+        return (
+            <div>
+                <input
+                type = "text"
+                name = "hobby"
+                placeholder="hobby"
+                value = {hobby}
+                onChange = {handleChange}
+                />
+                
+                <button type = "button"
+                onClick = {handleAddHobby}>
+                ADD HOBBY
+                </button>
+
+                {
+                    data.map((el,index)=> (
+                        <>
+                        <h1>{el}</h1>
+                        <button onClick = {handleRemove}>remove</button>
+                        </>
+                    ))
+                }
+            </div>
+        );
+      }
+
+      let rootElement = document.getElementById("root");
+      ReactDOM.createRoot(rootElement).render(<App />);
+    </script>
+  </body>
+</html>
+
+
